@@ -10,8 +10,8 @@ const HeaderComponent = () => {
           <h3>Active Tracker</h3>
         </div>
         <ul className='flex justify-between gap-x-6'>
-          <Link to='/invoices'>Home</Link>
-          <Link to='/invoices'>Create</Link>
+          <Link to='/'>Home</Link>
+          <Link to='/'>Create</Link>
           <Link to='/login'>Login</Link>
         </ul>
       </nav>
