@@ -1,8 +1,20 @@
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import HeaderComponent from './components/HeaderComponent';
+import Register from './pages/Register';
+import Login from './pages/Login';
+
 function App() {
   return (
-    <div>
-      <h1 className='bg-blue-300 h-32 w-32 mx-auto'>hello chiki</h1>
-    </div>
+    <React.Fragment>
+      <HeaderComponent></HeaderComponent>
+      <main>
+        <Routes>
+          <Route path='register' element={<Register></Register>} />
+          <Route path='login' element={<Login></Login>}></Route>
+        </Routes>
+      </main>
+    </React.Fragment>
   );
 }
 
