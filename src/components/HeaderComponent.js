@@ -1,10 +1,14 @@
 import { signOut } from 'firebase/auth';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase/firebase-config';
+import WorkoutContext from '../store/context';
 
 const HeaderComponent = () => {
   const navigate = useNavigate();
+
+  // user state
+  const ctx = useContext(WorkoutContext);
 
   // logout current user
   const logoutHandler = async () => {
@@ -27,15 +31,21 @@ const HeaderComponent = () => {
           <Link className='cursor-pointer' to='/home'>
             Home
           </Link>
-          <Link className='cursor-pointer' to='/'>
-            Create
-          </Link>
-          <Link className='cursor-pointer' to='/login'>
-            Login
-          </Link>
-          <li className='cursor-pointer' onClick={logoutHandler}>
-            Logout
-          </li>
+          {ctx.currentUser && (
+            <Link className='cursor-pointer' to='/create'>
+              Create
+            </Link>
+          )}
+          {!ctx.currentUser && (
+            <Link className='cursor-pointer' to='/login'>
+              Login
+            </Link>
+          )}
+          {ctx.currentUser && (
+            <li className='cursor-pointer' onClick={logoutHandler}>
+              Logout
+            </li>
+          )}
         </ul>
       </nav>
     </header>
