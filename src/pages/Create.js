@@ -4,9 +4,9 @@ import SelectComponent from '../components/UI/SelectComponent';
 
 const Create = () => {
   const workoutTypeOptions = [
-    { name: 'Select Workout', value: 'select-workout' },
-    { name: 'Strength Training', value: 'strength' },
-    { name: 'Cardio', value: 'cardio' },
+    { label: 'Select Workout', value: 'select-workout' },
+    { label: 'Strength Training', value: 'strength' },
+    { label: 'Cardio', value: 'cardio' },
   ];
   return (
     <div className='max-w-screen-sm mx-auto px-4 py-10'>

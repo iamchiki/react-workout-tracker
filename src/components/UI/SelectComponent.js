@@ -9,8 +9,12 @@ const SelectComponent = (props) => {
         {props.children}
       </label>
       <select id={props.id} className='p-2 text-gray-500 focus:outline-none'>
-        {props.options.map((option) => {
-          return <option value={option.value}>{option.name}</option>;
+        {props.options.map((option, index) => {
+          return (
+            <option value={option.value} key={index}>
+              {option.label}
+            </option>
+          );
         })}
       </select>
     </div>
