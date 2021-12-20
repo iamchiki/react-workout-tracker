@@ -1,19 +1,24 @@
 import React from 'react';
 import Button from './UI/Button';
-import SelectComponent from './UI/SelectComponent';
 
 const CardioInput = () => {
-  const cardioOptions = [
-    { label: 'Select Type', value: 'select-type' },
-    { label: 'Runs', value: 'run' },
-    { label: 'Walk', value: 'walk' },
-  ];
   return (
     <div className='flex flex-col gap-y-4'>
       <div className='flex flex-col gap-x-6 gap-y-2 relative md:flex-row'>
-        <SelectComponent id='cardio-type' options={cardioOptions}>
-          Type
-        </SelectComponent>
+        <div className='flex flex-col'>
+          <label
+            htmlFor='cardio-type'
+            className='mb-1 text-sm text-at-light-green'>
+            Type
+          </label>
+          <select
+            id='cardio-type'
+            className='p-2 text-gray-500 focus:outline-none'>
+            <option value='select-type'>Select Type</option>
+            <option value='run'>Runs</option>
+            <option value='walk'>Walk</option>
+          </select>
+        </div>
         <div className='flex flex-col flex-1'>
           <label
             htmlFor='distance'
