@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { uid } from 'uid';
 import CardioItem from './CardioItem';
 import Button from './UI/Button';
 
 const CardioInput = () => {
-  const cardioItem = <CardioItem key='a'></CardioItem>;
-  const [cardioItems, setCardioItems] = useState([cardioItem]);
+  const [cardioItems, setCardioItems] = useState([
+    <CardioItem key={uid()}></CardioItem>,
+  ]);
   const clickHandler = () => {
     setCardioItems((prevCardioItems) => {
-      return [...prevCardioItems, cardioItem];
+      return [...prevCardioItems, <CardioItem key={uid()}></CardioItem>];
     });
   };
 

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { uid } from 'uid';
 import StrengthItem from './StrengthItem';
 import Button from './UI/Button';
 
 const StrengthInput = () => {
-  const strengthItem = <StrengthItem></StrengthItem>;
-  const [strengthItems, setStrengthItems] = useState([strengthItem]);
+  const [strengthItems, setStrengthItems] = useState([
+    <StrengthItem key={uid()}></StrengthItem>,
+  ]);
   const clickHandler = () => {
     setStrengthItems((prevStrengthItems) => {
-      return [...prevStrengthItems, strengthItem];
+      return [...prevStrengthItems, <StrengthItem key={uid()}></StrengthItem>];
     });
   };
 
