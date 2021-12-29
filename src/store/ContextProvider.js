@@ -1,5 +1,5 @@
 import { onAuthStateChanged } from 'firebase/auth';
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import { auth } from '../firebase/firebase-config';
 import WorkoutContext from './context';
 
@@ -11,6 +11,7 @@ const ContextProvider = (props) => {
   });
   const initialValues = {
     currentUser: user,
+    exercises: [],
   };
   return (
     <WorkoutContext.Provider value={initialValues}>

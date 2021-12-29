@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { uid } from 'uid';
+import WorkoutContext from '../store/context';
 import CardioItem from './CardioItem';
 import Button from './UI/Button';
 
 const CardioInput = () => {
-  const [cardioItems, setCardioItems] = useState([
-    <CardioItem key={uid()}></CardioItem>,
-  ]);
-  const clickHandler = () => {
-    setCardioItems((prevCardioItems) => {
-      return [...prevCardioItems, <CardioItem key={uid()}></CardioItem>];
-    });
-  };
+  const ctx = useContext(WorkoutContext);
+  const [exercises, setExercises] = useState(ctx.exercises);
 
+  const clickHandler = () => {
+    ctx.exercises = [
+      ...exercises,
+      { type: '', distance: '', duration: '', pace: '' },
+    ];
+    setExercises(ctx.exercises);
+  };
   return (
     <div className='flex flex-col gap-y-4'>
-      {cardioItems}
+      {exercises.map((exercise, index) => {
+        return <CardioItem rowIndex={index} key={uid()}></CardioItem>;
+      })}
       <Button onClick={clickHandler}>Add Exercise</Button>
     </div>
   );
