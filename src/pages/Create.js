@@ -1,9 +1,9 @@
-import React, { useReducer } from 'react';
+import React, { useContext, useReducer, useRef } from 'react';
 import CardioInput from '../components/CardioInput';
 import StrengthInput from '../components/StrengthInput';
-import Button from '../components/UI/Button';
 import InputComponent from '../components/UI/InputComponent';
 import SelectComponent from '../components/UI/SelectComponent';
+import WorkoutContext from '../store/context';
 
 const initialState = { strength: false, cardio: false };
 const reducer = (state, action) => {
@@ -25,30 +25,65 @@ const reducer = (state, action) => {
 
 const Create = () => {
   const [workoutState, dispatch] = useReducer(reducer, initialState);
+  const ctx = useContext(WorkoutContext);
+
+  // refference for dom node
+  const workOutNameRef = useRef('');
+  const workOutTypeRef = useRef('');
+
+  // workout select option
   const workoutTypeOptions = [
     { label: 'Select Workout', value: 'select-workout' },
     { label: 'Strength Training', value: 'strength' },
     { label: 'Cardio', value: 'cardio' },
   ];
 
+  // take value onchanging select optiona
   const optionChangeHandler = (optionValue) => {
     dispatch({ type: optionValue });
+
+    if (optionValue === 'strength') {
+      ctx.exercises = [{ name: '', sets: '', reps: '', weight: '' }];
+    } else if (optionValue === 'cardio') {
+      ctx.exercises = [{ type: '', distance: '', duration: '', pace: '' }];
+    }
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(ctx.exercises);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className='max-w-screen-sm mx-auto px-4 py-10'>
-      <form className='p-8 flex flex-col bg-light-grey rounded-md shadow-lg'>
+      <form
+        onSubmit={submitHandler}
+        className='p-8 flex flex-col bg-light-grey rounded-md shadow-lg'>
         <h1 className='text-3xl text-at-light-green mb-4'>Record Workout</h1>
-        <InputComponent id='workout-name'>Workout Name</InputComponent>
+        <InputComponent ref={workOutNameRef} id='workout-name'>
+          Workout Name
+        </InputComponent>
         <SelectComponent
           onOptionChange={optionChangeHandler}
           id='workout-type'
-          options={workoutTypeOptions}>
+          options={workoutTypeOptions}
+          ref={workOutTypeRef}>
           Workout Type
         </SelectComponent>
         {workoutState.strength && <StrengthInput></StrengthInput>}
         {workoutState.cardio && <CardioInput></CardioInput>}
-        <Button>Record Workout</Button>
+        <button
+          type='submit'
+          className='mt-6 py-2 px-6 rounded-sm self-start text-sm
+            text-white bg-at-light-green duration-200 border-solid
+            border-2 border-transparent hover:border-at-light-green hover:bg-white
+            hover:text-at-light-green'>
+          Record Workout
+        </button>
       </form>
     </div>
   );

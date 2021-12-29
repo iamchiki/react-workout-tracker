@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SelectComponent = (props) => {
+const SelectComponent = React.forwardRef((props, ref) => {
   const changeHandler = (e) => {
     props.onOptionChange(e.target.value);
   };
@@ -13,7 +13,8 @@ const SelectComponent = (props) => {
       <select
         id={props.id}
         onChange={changeHandler}
-        className='p-2 text-gray-500 focus:outline-none'>
+        className='p-2 text-gray-500 focus:outline-none'
+        ref={ref}>
         {props.options.map((option, index) => {
           return (
             <option value={option.value} key={index}>
@@ -24,6 +25,6 @@ const SelectComponent = (props) => {
       </select>
     </div>
   );
-};
+});
 
 export default SelectComponent;
