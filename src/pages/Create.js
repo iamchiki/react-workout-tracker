@@ -4,6 +4,9 @@ import StrengthInput from '../components/StrengthInput';
 import InputComponent from '../components/UI/InputComponent';
 import SelectComponent from '../components/UI/SelectComponent';
 import WorkoutContext from '../store/context';
+import { doc, setDoc } from 'firebase/firestore';
+import { uid } from 'uid';
+import { db } from '../firebase/firebase-config';
 
 const initialState = { strength: false, cardio: false };
 const reducer = (state, action) => {
@@ -53,6 +56,20 @@ const Create = () => {
     e.preventDefault();
     try {
       console.log(ctx.exercises);
+      const workouts = {
+        workoutName: workOutNameRef.current.value,
+        workoutType: workOutTypeRef.current.value,
+        exercise: ctx.exercises,
+      };
+      await setDoc(
+        doc(db, 'users', ctx.currentUser.uid, 'workouts', uid()),
+        workouts
+      );
+
+      await setDoc(doc(db, 'users', ctx.currentUser.uid), {
+        userId: ctx.currentUser.uid,
+      });
+      // console.log(workout);
     } catch (error) {
       console.log(error);
     }
