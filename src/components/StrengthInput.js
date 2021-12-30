@@ -16,11 +16,21 @@ const StrengthInput = () => {
     ];
     setExercises(ctx.exercises);
   };
+  // console.log(exercises);
+  const deleteHandler = (index) => {
+    ctx.exercises.splice(index, 1);
+    setExercises([...ctx.exercises]);
+  };
 
   return (
     <div className='flex flex-col gap-y-4'>
       {exercises.map((exercise, index) => {
-        return <StrengthItem rowIndex={index} key={uid()}></StrengthItem>;
+        return (
+          <StrengthItem
+            rowIndex={index}
+            key={uid()}
+            deleteRow={deleteHandler}></StrengthItem>
+        );
       })}
       <Button onClick={clickHandler}>Add Exercise</Button>
     </div>
