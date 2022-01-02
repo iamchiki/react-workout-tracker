@@ -25,24 +25,30 @@ const Home = () => {
       const fetchWorkouts = async () => {
         const data = await getDocs(collectionRef);
         const workouts = data.docs.map((doc) => {
-          console.log(doc.data());
+          // console.log(doc.data());
           return { ...doc.data(), id: doc.id };
         });
         setWorkoutList(workouts);
-        console.log(workouts);
+        // console.log(workouts);
       };
       fetchWorkouts();
     }
   }, []);
   console.log('home');
-  console.log(ctx.currentUser.email);
+  if (ctx.currentUser) {
+    console.log(ctx.currentUser.email);
+  }
   return (
     <React.Fragment>
       <div className='container mt-10 px-4'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
           {workoutList &&
             workoutList.map((workout) => {
-              return <WorkOutCard workOutInfo={workout}></WorkOutCard>;
+              return (
+                <WorkOutCard
+                  key={workout.id}
+                  workOutInfo={workout}></WorkOutCard>
+              );
             })}
         </div>
       </div>
