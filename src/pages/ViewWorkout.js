@@ -1,6 +1,6 @@
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import React, { useContext, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { doc, updateDoc } from 'firebase/firestore';
+import React, { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { uid } from 'uid';
 import { db } from '../firebase/firebase-config';
 import WorkoutContext from '../store/context';
@@ -16,6 +16,13 @@ const ViewWorkout = (props) => {
   console.log(location.state);
   const workout = location.state;
 
+  useEffect(() => {
+    ctx.exercises = workout.exercise;
+    return () => {
+      ctx.exercises = [];
+    };
+  }, []);
+
   const [exerciseList, setExerciseList] = useState(workout.exercise);
 
   const [editMode, setEditMode] = useState(false);
@@ -23,11 +30,22 @@ const ViewWorkout = (props) => {
     workoutName: workout.workoutName,
   });
 
+  const inputChangeHandler = (e) => {
+    const { value } = e.target;
+    setInputValues({ workoutName: value });
+  };
+
   // to enable edit mode for workouts update
   const toggleEditMode = () => {
     setEditMode((prevMode) => {
       return !prevMode;
     });
+  };
+
+  // to delet input fields from client side
+  const deleteExercise = (index) => {
+    ctx.exercises.splice(index, 1);
+    setExerciseList([...ctx.exercises]);
   };
 
   // to render strength or cardiio conditionally
@@ -38,7 +56,8 @@ const ViewWorkout = (props) => {
           key={uid()}
           editMode={editMode}
           exerciseInfo={exercise}
-          rowIndex={index}></StrengthEdit>
+          rowIndex={index}
+          deleteExercise={deleteExercise}></StrengthEdit>
       );
     }
     return (
@@ -46,7 +65,8 @@ const ViewWorkout = (props) => {
         key={uid()}
         editMode={editMode}
         exerciseInfo={exercise}
-        rowIndex={index}></CardioEdit>
+        rowIndex={index}
+        deleteExercise={deleteExercise}></CardioEdit>
     );
   };
 
@@ -62,9 +82,17 @@ const ViewWorkout = (props) => {
     setExerciseList(ctx.exercises);
   };
 
+  // get doc ref to which need to update
+  const docRef = doc(db, 'users', ctx.currentUser.uid, 'workouts', workout.id);
+
   // update value of existing workout
-  const updateRecord = (params) => {
+  const updateRecord = async () => {
     console.log(ctx.exercises);
+    console.log(docRef);
+    await updateDoc(docRef, {
+      workoutName: inputValues.workoutName,
+      exercise: ctx.exercises,
+    });
   };
 
   return (
@@ -103,7 +131,8 @@ const ViewWorkout = (props) => {
             <input
               type='text'
               className='p-2 w-full text-gray-500 focus:outline-none'
-              defaultValue={inputValues.workoutName}
+              onChange={inputChangeHandler}
+              value={inputValues.workoutName}
             />
           )}
           {!editMode && (
