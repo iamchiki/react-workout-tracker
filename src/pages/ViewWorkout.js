@@ -1,5 +1,5 @@
 import { doc, updateDoc } from 'firebase/firestore';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { uid } from 'uid';
 import { db } from '../firebase/firebase-config';
@@ -26,14 +26,8 @@ const ViewWorkout = (props) => {
   const [exerciseList, setExerciseList] = useState(workout.exercise);
 
   const [editMode, setEditMode] = useState(false);
-  const [inputValues, setInputValues] = useState({
-    workoutName: workout.workoutName,
-  });
 
-  const inputChangeHandler = (e) => {
-    const { value } = e.target;
-    setInputValues({ workoutName: value });
-  };
+  const workoutNameRef = useRef();
 
   // to enable edit mode for workouts update
   const toggleEditMode = () => {
@@ -90,7 +84,8 @@ const ViewWorkout = (props) => {
     console.log(ctx.exercises);
     console.log(docRef);
     await updateDoc(docRef, {
-      workoutName: inputValues.workoutName,
+      // workoutName: inputValues.workoutName,
+      workoutName: workoutNameRef.current.value,
       exercise: ctx.exercises,
     });
   };
@@ -131,8 +126,8 @@ const ViewWorkout = (props) => {
             <input
               type='text'
               className='p-2 w-full text-gray-500 focus:outline-none'
-              onChange={inputChangeHandler}
-              value={inputValues.workoutName}
+              defaultValue={workout.workoutName}
+              ref={workoutNameRef}
             />
           )}
           {!editMode && (
