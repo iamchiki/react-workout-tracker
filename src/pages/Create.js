@@ -7,6 +7,7 @@ import WorkoutContext from '../store/context';
 import { doc, setDoc } from 'firebase/firestore';
 import { uid } from 'uid';
 import { db } from '../firebase/firebase-config';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = { strength: false, cardio: false };
 const reducer = (state, action) => {
@@ -29,6 +30,8 @@ const reducer = (state, action) => {
 const Create = () => {
   const [workoutState, dispatch] = useReducer(reducer, initialState);
   const ctx = useContext(WorkoutContext);
+
+  const navigate = useNavigate();
 
   // refference for dom node
   const workOutNameRef = useRef('');
@@ -69,6 +72,7 @@ const Create = () => {
       await setDoc(doc(db, 'users', ctx.currentUser.uid), {
         userId: ctx.currentUser.uid,
       });
+      navigate('/home');
       // console.log(workout);
     } catch (error) {
       console.log(error);
