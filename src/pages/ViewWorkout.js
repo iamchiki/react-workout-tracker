@@ -1,6 +1,6 @@
-import { doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { uid } from 'uid';
 import { db } from '../firebase/firebase-config';
 import WorkoutContext from '../store/context';
@@ -28,6 +28,8 @@ const ViewWorkout = (props) => {
   const [editMode, setEditMode] = useState(false);
 
   const workoutNameRef = useRef();
+
+  const navigate = useNavigate();
 
   // to enable edit mode for workouts update
   const toggleEditMode = () => {
@@ -76,18 +78,42 @@ const ViewWorkout = (props) => {
     setExerciseList(ctx.exercises);
   };
 
-  // get doc ref to which need to update
-  const docRef = doc(db, 'users', ctx.currentUser.uid, 'workouts', workout.id);
-
   // update value of existing workout
   const updateRecord = async () => {
     console.log(ctx.exercises);
-    console.log(docRef);
-    await updateDoc(docRef, {
-      // workoutName: inputValues.workoutName,
-      workoutName: workoutNameRef.current.value,
-      exercise: ctx.exercises,
-    });
+    try {
+      const docRef = doc(
+        db,
+        'users',
+        ctx.currentUser.uid,
+        'workouts',
+        workout.id
+      );
+      await updateDoc(docRef, {
+        // workoutName: inputValues.workoutName,
+        workoutName: workoutNameRef.current.value,
+        exercise: ctx.exercises,
+      });
+      toggleEditMode();
+    } catch (error) {}
+  };
+
+  const deleteWorkout = async () => {
+    console.log('delete workout');
+    console.log(workout);
+
+    try {
+      const docRef = doc(
+        db,
+        'users',
+        ctx.currentUser.uid,
+        'workouts',
+        workout.id
+      );
+      await deleteDoc(docRef);
+      // navigate to home page after deleting workout
+      navigate('/home');
+    } catch (error) {}
   };
 
   return (
@@ -107,6 +133,7 @@ const ViewWorkout = (props) => {
             />
           </div>
           <div
+            onClick={deleteWorkout}
             className='h-7 w-7 rounded-full flex justify-center items-center cursor-pointer
         bg-at-light-green shadow-lg'>
             <img
