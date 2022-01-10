@@ -1,14 +1,20 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { uid } from 'uid';
 import InputComponent from '../components/UI/InputComponent';
+import StatusMessage from '../components/UI/StatusMessage';
 import { auth } from '../firebase/firebase-config';
+import WorkoutContext from '../store/context';
 
 const Register = () => {
   // input values
   const emailRef = useRef('');
   const passwordRef = useRef('');
   const confirmPasswordRef = useRef('');
+
+  const ctx = useContext(WorkoutContext);
+
   console.log(auth);
   // to navigate to other pages
   const navigate = useNavigate();
@@ -22,18 +28,34 @@ const Register = () => {
           emailRef.current.value,
           passwordRef.current.value
         );
-        // navigating to login page after creating new user
-        navigate('/login');
+        // navigating to home page after creating new user
+        navigate('/home');
       } else {
         throw new Error('Password does not match');
       }
     } catch (error) {
-      console.log(error);
+      let msg;
+      if (error.code) {
+        msg =
+          error.code === 'auth/weak-password'
+            ? error.message
+            : error.code.slice(5);
+      } else {
+        msg = error.message;
+      }
+      ctx.status = {
+        type: 'error',
+        message: `Error: ${msg}`,
+      };
+      navigate('/register');
     }
   };
 
   return (
     <div className='max-w-screen-sm mx-auto px-4 py-10'>
+      {ctx.status.type && (
+        <StatusMessage key={uid()} status={ctx.status}></StatusMessage>
+      )}
       <form
         onSubmit={registerHandler}
         className='p-8 flex flex-col bg-light-grey rounded-md shadow-lg'>

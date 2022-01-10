@@ -2,6 +2,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { uid } from 'uid';
+import StatusMessage from '../components/UI/StatusMessage';
 import { db } from '../firebase/firebase-config';
 import WorkoutContext from '../store/context';
 import CardioEdit from './CardioEdit';
@@ -40,7 +41,14 @@ const ViewWorkout = (props) => {
 
   // to delet input fields from client side
   const deleteExercise = (index) => {
-    ctx.exercises.splice(index, 1);
+    if (ctx.exercises.length > 1) {
+      ctx.exercises.splice(index, 1);
+    } else {
+      ctx.status = {
+        type: 'error',
+        message: 'Error: Cannot remove, need to have at least one exercise',
+      };
+    }
     setExerciseList([...ctx.exercises]);
   };
 
@@ -91,11 +99,19 @@ const ViewWorkout = (props) => {
       );
       await updateDoc(docRef, {
         // workoutName: inputValues.workoutName,
+        // workoutName: workoutNameRef.current.value,
         workoutName: workoutNameRef.current.value,
         exercise: ctx.exercises,
       });
-      toggleEditMode();
-    } catch (error) {}
+      ctx.status = { type: 'success', message: 'Success: Workout Updated!' };
+    } catch (error) {
+      console.log(error);
+      ctx.status = {
+        type: 'error',
+        message: 'Error: Somthing went wrong, pleasee try again!',
+      };
+    }
+    toggleEditMode();
   };
 
   const deleteWorkout = async () => {
@@ -113,11 +129,15 @@ const ViewWorkout = (props) => {
       await deleteDoc(docRef);
       // navigate to home page after deleting workout
       navigate('/home');
+      ctx.status = { type: 'success', message: 'Success: Workout Deleted!' };
     } catch (error) {}
   };
 
   return (
     <div className='max-w-screen-sm mx-auto px-4 py-10'>
+      {ctx.status.type && (
+        <StatusMessage key={uid()} status={ctx.status}></StatusMessage>
+      )}
       <div
         className='flex flex-col items-center p-8 rounded-md shadow-md 
       bg-light-grey relative'>

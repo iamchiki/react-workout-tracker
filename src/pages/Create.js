@@ -73,7 +73,7 @@ const Create = () => {
         userId: ctx.currentUser.uid,
       });
       navigate('/home');
-      // console.log(workout);
+      ctx.status = { type: 'success', message: 'Success: Workout Created!' };
     } catch (error) {
       console.log(error);
     }
