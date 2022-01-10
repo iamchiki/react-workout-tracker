@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { uid } from 'uid';
 import WorkoutContext from '../store/context';
 import CardioItem from './CardioItem';
@@ -8,6 +9,8 @@ const CardioInput = () => {
   const ctx = useContext(WorkoutContext);
   const [exercises, setExercises] = useState(ctx.exercises);
 
+  const navigate = useNavigate();
+
   const clickHandler = () => {
     ctx.exercises = [
       ...exercises,
@@ -16,7 +19,17 @@ const CardioInput = () => {
     setExercises(ctx.exercises);
   };
   const deleteHandler = (index) => {
-    ctx.exercises.splice(index, 1);
+    // ctx.exercises.splice(index, 1);
+    // setExercises([...ctx.exercises]);
+    if (ctx.exercises.length > 1) {
+      ctx.exercises.splice(index, 1);
+    } else {
+      ctx.status = {
+        type: 'error',
+        message: 'Error: Cannot remove, need to have at least one exercise',
+      };
+      navigate('/create');
+    }
     setExercises([...ctx.exercises]);
   };
   return (

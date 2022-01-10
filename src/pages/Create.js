@@ -8,6 +8,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { uid } from 'uid';
 import { db } from '../firebase/firebase-config';
 import { useNavigate } from 'react-router-dom';
+import StatusMessage from '../components/UI/StatusMessage';
 
 const initialState = { strength: false, cardio: false };
 const reducer = (state, action) => {
@@ -81,6 +82,9 @@ const Create = () => {
 
   return (
     <div className='max-w-screen-sm mx-auto px-4 py-10'>
+      {ctx.status.type && (
+        <StatusMessage key={uid()} status={ctx.status}></StatusMessage>
+      )}
       <form
         onSubmit={submitHandler}
         className='p-8 flex flex-col bg-light-grey rounded-md shadow-lg'>

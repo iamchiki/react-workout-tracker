@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { uid } from 'uid';
 import WorkoutContext from '../store/context';
 import StrengthItem from './StrengthItem';
@@ -9,6 +10,8 @@ const StrengthInput = () => {
 
   const [exercises, setExercises] = useState(ctx.exercises);
 
+  const navigate = useNavigate();
+
   const clickHandler = () => {
     ctx.exercises = [
       ...exercises,
@@ -18,7 +21,17 @@ const StrengthInput = () => {
   };
   // console.log(exercises);
   const deleteHandler = (index) => {
-    ctx.exercises.splice(index, 1);
+    // ctx.exercises.splice(index, 1);
+    // setExercises([...ctx.exercises]);
+    if (ctx.exercises.length > 1) {
+      ctx.exercises.splice(index, 1);
+    } else {
+      ctx.status = {
+        type: 'error',
+        message: 'Error: Cannot remove, need to have at least one exercise',
+      };
+      navigate('/create');
+    }
     setExercises([...ctx.exercises]);
   };
 
