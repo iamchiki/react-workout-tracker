@@ -8,7 +8,7 @@ const InputComponent = React.forwardRef((props, ref) => {
         {props.children}
       </label>
       <input
-        type='text'
+        type={props.type}
         className='p-2 text-gray-500 focus:outline-none'
         id={props.id}
         ref={ref}

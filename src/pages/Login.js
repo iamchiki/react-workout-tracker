@@ -49,10 +49,10 @@ const Login = () => {
         onSubmit={loginHandler}
         className='p-8 flex flex-col bg-light-grey rounded-md shadow-lg'>
         <h1 className='text-3xl text-at-light-green mb-4'>Login</h1>
-        <InputComponent id='email' ref={emailRef}>
+        <InputComponent id='email' type='email' ref={emailRef}>
           Email
         </InputComponent>
-        <InputComponent id='password' ref={passwordRef}>
+        <InputComponent id='password' type='password' ref={passwordRef}>
           Password
         </InputComponent>
         <button

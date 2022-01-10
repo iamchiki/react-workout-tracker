@@ -85,7 +85,7 @@ const Create = () => {
         onSubmit={submitHandler}
         className='p-8 flex flex-col bg-light-grey rounded-md shadow-lg'>
         <h1 className='text-3xl text-at-light-green mb-4'>Record Workout</h1>
-        <InputComponent ref={workOutNameRef} id='workout-name'>
+        <InputComponent ref={workOutNameRef} type='text' id='workout-name'>
           Workout Name
         </InputComponent>
         <SelectComponent

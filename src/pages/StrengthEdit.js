@@ -61,7 +61,7 @@ const StrengthEdit = (props) => {
           <input
             id='sets'
             className='p-2 w-full text-gray-500 focus:outline-none'
-            type='text'
+            type='number'
             value={inputValues.sets}
             onChange={inputChangeHandler}
           />
@@ -74,7 +74,7 @@ const StrengthEdit = (props) => {
           <input
             id='reps'
             className='p-2 w-full text-gray-500 focus:outline-none'
-            type='text'
+            type='number'
             value={inputValues.reps}
             onChange={inputChangeHandler}
           />
@@ -89,7 +89,7 @@ const StrengthEdit = (props) => {
           <input
             id='weight'
             className='p-2 w-full text-gray-500 focus:outline-none'
-            type='text'
+            type='number'
             value={inputValues.weight}
             onChange={inputChangeHandler}
           />

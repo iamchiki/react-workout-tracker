@@ -56,7 +56,7 @@ const CardioItem = (props) => {
           Distance
         </label>
         <input
-          type='text'
+          type='number'
           className='p-2 w-full text-gray-500 focus:outline-none'
           id='distance'
           onChange={inputChangeHandler}
@@ -68,7 +68,7 @@ const CardioItem = (props) => {
           Duration
         </label>
         <input
-          type='text'
+          type='number'
           className='p-2 w-full text-gray-500 focus:outline-none'
           id='duration'
           onChange={inputChangeHandler}
@@ -80,7 +80,7 @@ const CardioItem = (props) => {
           Pace
         </label>
         <input
-          type='text'
+          type='number'
           className='p-2 w-full text-gray-500 focus:outline-none'
           id='pace'
           onChange={inputChangeHandler}

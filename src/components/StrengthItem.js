@@ -55,7 +55,7 @@ const StrengthItem = (props) => {
           Sets
         </label>
         <input
-          type='text'
+          type='number'
           className='p-2 w-full text-gray-500 focus:outline-none'
           onChange={inputChangeHandler}
           value={ctx.exercises[props.rowIndex].sets}
@@ -67,7 +67,7 @@ const StrengthItem = (props) => {
           Reps
         </label>
         <input
-          type='text'
+          type='number'
           className='p-2 w-full text-gray-500 focus:outline-none'
           onChange={inputChangeHandler}
           value={ctx.exercises[props.rowIndex].reps}
@@ -79,7 +79,7 @@ const StrengthItem = (props) => {
           Weight (LB's)
         </label>
         <input
-          type='text'
+          type='number'
           className='p-2 w-full text-gray-500 focus:outline-none'
           onChange={inputChangeHandler}
           value={ctx.exercises[props.rowIndex].weight}

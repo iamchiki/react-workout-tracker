@@ -66,7 +66,7 @@ const CardioEdit = (props) => {
           <input
             id='distance'
             className='p-2 w-full text-gray-500 focus:outline-none'
-            type='text'
+            type='number'
             value={inputValues.distance}
             onChange={inputChangeHandler}
           />
@@ -79,7 +79,7 @@ const CardioEdit = (props) => {
           <input
             id='duration'
             className='p-2 w-full text-gray-500 focus:outline-none'
-            type='text'
+            type='number'
             value={inputValues.duration}
             onChange={inputChangeHandler}
           />
@@ -92,7 +92,7 @@ const CardioEdit = (props) => {
           <input
             id='pace'
             className='p-2 w-full text-gray-500 focus:outline-none'
-            type='text'
+            type='number'
             value={inputValues.pace}
             onChange={inputChangeHandler}
           />
