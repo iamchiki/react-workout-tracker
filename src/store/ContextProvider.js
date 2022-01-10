@@ -12,6 +12,10 @@ const ContextProvider = (props) => {
   const initialValues = {
     currentUser: user,
     exercises: [],
+    status: {
+      type: null,
+      message: '',
+    },
   };
   return (
     <WorkoutContext.Provider value={initialValues}>
