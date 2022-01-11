@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/react-workout-tracker/static/css/main.c788c186.css",
-    "main.js": "/react-workout-tracker/static/js/main.9fd21c1a.js",
+    "main.css": "/react-workout-tracker/static/css/main.c2b3b301.css",
+    "main.js": "/react-workout-tracker/static/js/main.a6623610.js",
+    "static/media/dumbbell-light.ef471ab1.png": "/react-workout-tracker/static/media/dumbbell-light.ef471ab1.5423642b10a626173c2f.png",
     "index.html": "/react-workout-tracker/index.html",
-    "main.c788c186.css.map": "/react-workout-tracker/static/css/main.c788c186.css.map",
-    "main.9fd21c1a.js.map": "/react-workout-tracker/static/js/main.9fd21c1a.js.map"
+    "main.c2b3b301.css.map": "/react-workout-tracker/static/css/main.c2b3b301.css.map",
+    "main.a6623610.js.map": "/react-workout-tracker/static/js/main.a6623610.js.map"
   },
   "entrypoints": [
-    "static/css/main.c788c186.css",
-    "static/js/main.9fd21c1a.js"
+    "static/css/main.c2b3b301.css",
+    "static/js/main.a6623610.js"
   ]
 }
