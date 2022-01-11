@@ -90,6 +90,10 @@ const ViewWorkout = (props) => {
   const updateRecord = async () => {
     console.log(ctx.exercises);
     try {
+      if (workoutNameRef.current.value === '') {
+        throw new Error('Please Enter Workout Name');
+      }
+
       const docRef = doc(
         db,
         'users',
@@ -108,7 +112,7 @@ const ViewWorkout = (props) => {
       console.log(error);
       ctx.status = {
         type: 'error',
-        message: 'Error: Somthing went wrong, pleasee try again!',
+        message: `${error.message}`,
       };
     }
     toggleEditMode();

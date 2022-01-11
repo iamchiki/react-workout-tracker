@@ -2,6 +2,13 @@ import React, { useContext, useState } from 'react';
 import WorkoutContext from '../store/context';
 
 const CardioItem = (props) => {
+  const [inputValidation, setInputValidation] = useState({
+    type: '',
+    distance: '',
+    duration: '',
+    pace: '',
+  });
+
   const [inputValues, setInputValues] = useState({
     type: '',
     distance: '',
@@ -14,11 +21,20 @@ const CardioItem = (props) => {
     const { id, value } = e.target;
     ctx.exercises[props.rowIndex][id] = value;
     setInputValues({ ...inputValues, [id]: value });
+    setInputValidation({ ...inputValidation, [id]: '' });
   };
 
   const svgClickHandler = () => {
     props.deleteRow(props.rowIndex);
     console.log('delet clicked');
+  };
+
+  const checkInputValidation = (e) => {
+    console.dir(e.target);
+    const { id } = e.target;
+    if (e.target.value === '' || e.target.value === 'select-type') {
+      setInputValidation({ ...inputValidation, [id]: 'ring-1 ring-red-500' });
+    }
   };
   return (
     <div className='flex flex-col gap-x-6 gap-y-2 relative md:flex-row'>
@@ -43,9 +59,10 @@ const CardioItem = (props) => {
         </label>
         <select
           id='type'
-          className='p-2 text-gray-500 focus:outline-none'
+          className={`p-2 text-gray-500 focus:outline-none ${inputValidation.type}`}
           onChange={inputChangeHandler}
-          value={ctx.exercises[props.rowIndex].type}>
+          value={ctx.exercises[props.rowIndex].type}
+          onBlur={checkInputValidation}>
           <option value='select-type'>Select Type</option>
           <option value='run'>Runs</option>
           <option value='walk'>Walk</option>
@@ -57,10 +74,11 @@ const CardioItem = (props) => {
         </label>
         <input
           type='number'
-          className='p-2 w-full text-gray-500 focus:outline-none'
+          className={`p-2 w-full text-gray-500 focus:outline-none ${inputValidation.distance}`}
           id='distance'
           onChange={inputChangeHandler}
           value={ctx.exercises[props.rowIndex].distance}
+          onBlur={checkInputValidation}
         />
       </div>
       <div className='flex flex-col flex-1'>
@@ -69,10 +87,11 @@ const CardioItem = (props) => {
         </label>
         <input
           type='number'
-          className='p-2 w-full text-gray-500 focus:outline-none'
+          className={`p-2 w-full text-gray-500 focus:outline-none ${inputValidation.duration}`}
           id='duration'
           onChange={inputChangeHandler}
           value={ctx.exercises[props.rowIndex].duration}
+          onBlur={checkInputValidation}
         />
       </div>
       <div className='flex flex-col flex-1'>
@@ -81,10 +100,11 @@ const CardioItem = (props) => {
         </label>
         <input
           type='number'
-          className='p-2 w-full text-gray-500 focus:outline-none'
+          className={`p-2 w-full text-gray-500 focus:outline-none ${inputValidation.pace}`}
           id='pace'
           onChange={inputChangeHandler}
           value={ctx.exercises[props.rowIndex].pace}
+          onBlur={checkInputValidation}
         />
       </div>
     </div>

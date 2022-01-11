@@ -60,6 +60,11 @@ const Create = () => {
     e.preventDefault();
     try {
       console.log(ctx.exercises);
+      if (workOutNameRef.current.value === '') {
+        throw new Error('Please Enter Workout Name');
+      } else if (workOutTypeRef.current.value === 'select-workout') {
+        throw new Error('Please Enter Workout Type');
+      }
       const workouts = {
         workoutName: workOutNameRef.current.value,
         workoutType: workOutTypeRef.current.value,
@@ -77,6 +82,12 @@ const Create = () => {
       ctx.status = { type: 'success', message: 'Success: Workout Created!' };
     } catch (error) {
       console.log(error);
+      console.dir(error);
+      ctx.status = {
+        type: 'error',
+        message: `${error.message}`,
+      };
+      navigate('/create');
     }
   };
 

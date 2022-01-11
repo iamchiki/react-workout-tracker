@@ -2,6 +2,14 @@ import React, { useContext, useState } from 'react';
 import WorkoutContext from '../store/context';
 
 const StrengthEdit = (props) => {
+  // for input validation
+  const [inputValidation, setInputValidation] = useState({
+    name: '',
+    sets: '',
+    reps: '',
+    weight: '',
+  });
+
   const { name, sets, reps, weight } = props.exerciseInfo;
   const [inputValues, setInputValues] = useState({
     name: name,
@@ -16,12 +24,20 @@ const StrengthEdit = (props) => {
     const { id, value } = e.target;
     ctx.exercises[props.rowIndex][id] = value;
     setInputValues({ ...inputValues, [id]: value });
+    setInputValidation({ ...inputValidation, [id]: '' });
   };
 
   const deleteHandler = () => {
     props.deleteExercise(props.rowIndex);
   };
 
+  const checkInputValidation = (e) => {
+    console.dir(e.target);
+    const { id } = e.target;
+    if (e.target.value === '') {
+      setInputValidation({ ...inputValidation, [id]: 'ring-1 ring-red-500' });
+    }
+  };
   console.log(ctx.exercises);
   return (
     <div className='flex flex-col gap-x-6 gap-y-2 relative sm:flex-row'>
@@ -47,10 +63,11 @@ const StrengthEdit = (props) => {
         {props.editMode && (
           <input
             id='name'
-            className='p-2 w-full text-gray-500 focus:outline-none'
+            className={`p-2 w-full text-gray-500 focus:outline-none ${inputValidation.name}`}
             type='text'
             value={inputValues.name}
             onChange={inputChangeHandler}
+            onBlur={checkInputValidation}
           />
         )}
         {!props.editMode && <p>{name}</p>}
@@ -60,10 +77,11 @@ const StrengthEdit = (props) => {
         {props.editMode && (
           <input
             id='sets'
-            className='p-2 w-full text-gray-500 focus:outline-none'
+            className={`p-2 w-full text-gray-500 focus:outline-none ${inputValidation.sets}`}
             type='number'
             value={inputValues.sets}
             onChange={inputChangeHandler}
+            onBlur={checkInputValidation}
           />
         )}
         {!props.editMode && <p>{sets}</p>}
@@ -73,10 +91,11 @@ const StrengthEdit = (props) => {
         {props.editMode && (
           <input
             id='reps'
-            className='p-2 w-full text-gray-500 focus:outline-none'
+            className={`p-2 w-full text-gray-500 focus:outline-none ${inputValidation.reps}`}
             type='number'
             value={inputValues.reps}
             onChange={inputChangeHandler}
+            onBlur={checkInputValidation}
           />
         )}
         {!props.editMode && <p>{reps}</p>}
@@ -88,10 +107,11 @@ const StrengthEdit = (props) => {
         {props.editMode && (
           <input
             id='weight'
-            className='p-2 w-full text-gray-500 focus:outline-none'
+            className={`p-2 w-full text-gray-500 focus:outline-none ${inputValidation.weight}`}
             type='number'
             value={inputValues.weight}
             onChange={inputChangeHandler}
+            onBlur={checkInputValidation}
           />
         )}
         {!props.editMode && <p>{weight}</p>}
