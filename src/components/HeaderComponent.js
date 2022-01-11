@@ -24,7 +24,11 @@ const HeaderComponent = () => {
     <header className='bg-at-light-green text-white'>
       <nav className='flex justify-around px-4 py-6'>
         <div className='flex'>
-          <img className='w-14' src='' alt='' />
+          <img
+            className='w-14'
+            src={require('../assets/img/dumbbell-light.ef471ab1.png')}
+            alt='image not'
+          />
           <h3>Active Tracker</h3>
         </div>
         <ul className='flex justify-between gap-x-6'>
