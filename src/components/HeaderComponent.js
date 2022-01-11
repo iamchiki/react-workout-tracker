@@ -25,7 +25,9 @@ const HeaderComponent = () => {
     <header className='bg-at-light-green text-white'>
       <nav className='flex justify-around px-4 py-6'>
         <div className='flex items-center gap-x-6'>
-          <img className='w-14' src={dumbleIcon} alt='image not' />
+          <Link className='cursor-pointer' to='/home'>
+            <img className='w-14' src={dumbleIcon} alt='image not' />
+          </Link>
           <h3>Active Tracker</h3>
         </div>
         <ul className='flex justify-between items-center gap-x-6'>

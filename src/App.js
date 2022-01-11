@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import HeaderComponent from './components/HeaderComponent';
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -13,6 +13,7 @@ function App() {
       <HeaderComponent></HeaderComponent>
       <main>
         <Routes>
+          <Route path='/' element={<Navigate to='/home'></Navigate>} />
           <Route path='register' element={<Register></Register>} />
           <Route path='login' element={<Login></Login>}></Route>
           <Route path='home' element={<Home></Home>}></Route>
