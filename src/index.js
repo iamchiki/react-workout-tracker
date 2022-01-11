@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+// import './styles.css';
+import './tailwind.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import ContextProvider from './store/ContextProvider';
