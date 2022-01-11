@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase/firebase-config';
 import WorkoutContext from '../store/context';
+import dumbleIcon from '../assets/img/dumbbell-light.ef471ab1.png';
 
 const HeaderComponent = () => {
   const navigate = useNavigate();
@@ -23,15 +24,11 @@ const HeaderComponent = () => {
   return (
     <header className='bg-at-light-green text-white'>
       <nav className='flex justify-around px-4 py-6'>
-        <div className='flex'>
-          <img
-            className='w-14'
-            src={require('../assets/img/dumbbell-light.ef471ab1.png')}
-            alt='image not'
-          />
+        <div className='flex items-center gap-x-6'>
+          <img className='w-14' src={dumbleIcon} alt='image not' />
           <h3>Active Tracker</h3>
         </div>
-        <ul className='flex justify-between gap-x-6'>
+        <ul className='flex justify-between items-center gap-x-6'>
           <Link className='cursor-pointer' to='/home'>
             Home
           </Link>

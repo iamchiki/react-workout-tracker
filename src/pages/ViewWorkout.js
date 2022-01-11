@@ -7,6 +7,10 @@ import { db } from '../firebase/firebase-config';
 import WorkoutContext from '../store/context';
 import CardioEdit from './CardioEdit';
 import StrengthEdit from './StrengthEdit';
+import cardioImg from '../assets/img/running-light-green.599f4302.png';
+import strenghtImg from '../assets/img/dumbbell-light-green.e9869f64.png';
+import deleteIcon from '../assets/img/trash-light.f5a99b6a.png';
+import editIcon from '../assets/img/pencil-light.67a7865c.png';
 
 const ViewWorkout = (props) => {
   // get context from store
@@ -137,6 +141,14 @@ const ViewWorkout = (props) => {
     } catch (error) {}
   };
 
+  // img based on workout type
+  let imgSrc;
+  if (workout.workoutType === 'cardio') {
+    imgSrc = cardioImg;
+  } else {
+    imgSrc = strenghtImg;
+  }
+
   return (
     <div className='max-w-screen-sm mx-auto px-4 py-10'>
       {ctx.status.type && (
@@ -150,23 +162,16 @@ const ViewWorkout = (props) => {
             onClick={toggleEditMode}
             className='h-7 w-7 rounded-full flex justify-center items-center cursor-pointer
         bg-at-light-green shadow-lg'>
-            <img
-              className='h-3.5 w-auto'
-              src='@/assets/images/pencil-light.png'
-              alt=''
-            />
+            <img className='h-3.5 w-auto' src={editIcon} alt='' />
           </div>
           <div
             onClick={deleteWorkout}
             className='h-7 w-7 rounded-full flex justify-center items-center cursor-pointer
         bg-at-light-green shadow-lg'>
-            <img
-              className='h-3.5 w-auto'
-              src='@/assets/images/trash-light.png'
-              alt=''
-            />
+            <img className='h-3.5 w-auto' src={deleteIcon} alt='' />
           </div>
         </div>
+        <img src={imgSrc} className='h-24 w-auto' alt='' />
         <span
           className='mt-6 py-1.5 px-5 text-xs text-white bg-at-light-green
         rounded-lg shadow-md'>
