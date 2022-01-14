@@ -32,12 +32,15 @@ const Home = () => {
   if (ctx.currentUser) {
     console.log(ctx.currentUser.email);
   }
+  console.log('home');
+  console.log(workoutList);
   return (
     <React.Fragment>
-      <div className='container mt-10 px-4'>
+      <div className='container mx-auto mt-10 px-4'>
         {ctx.status.type && <StatusMessage status={ctx.status}></StatusMessage>}
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
-          {workoutList &&
+          {ctx.currentUser &&
+            workoutList &&
             workoutList.map((workout) => {
               return (
                 <WorkOutCard
