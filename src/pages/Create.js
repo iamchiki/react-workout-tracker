@@ -59,7 +59,6 @@ const Create = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      console.log(ctx.exercises);
       if (workOutNameRef.current.value === '') {
         throw new Error('Please Enter Workout Name');
       } else if (workOutTypeRef.current.value === 'select-workout') {
@@ -81,8 +80,6 @@ const Create = () => {
       navigate('/home');
       ctx.status = { type: 'success', message: 'Success: Workout Created!' };
     } catch (error) {
-      console.log(error);
-      console.dir(error);
       ctx.status = {
         type: 'error',
         message: `${error.message}`,

@@ -16,9 +16,7 @@ const HeaderComponent = () => {
     try {
       const userCredential = await signOut(auth);
       navigate('/home');
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (

@@ -7,7 +7,6 @@ const StatusMessage = (props) => {
   //     status.type === 'success' ? 'text-at-light-green' : 'text-red-500';
   const [status, setStatus] = useState({ ...props.status });
   const ctx = useContext(WorkoutContext);
-  console.log(status);
   useEffect(() => {
     let timerId = setTimeout(() => {
       setStatus({ type: null, message: '' });
@@ -17,7 +16,6 @@ const StatusMessage = (props) => {
       clearTimeout(timerId);
     };
   }, []);
-  console.log('message');
   return (
     <React.Fragment>
       {status.type && (

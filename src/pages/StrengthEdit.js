@@ -39,7 +39,6 @@ const StrengthEdit = (props) => {
       setInputValidation({ ...inputValidation, [id]: 'ring-1 ring-red-500' });
     }
   };
-  console.log(ctx.exercises);
   return (
     <div className='flex flex-col gap-x-6 gap-y-2 relative sm:flex-row'>
       {props.editMode && (

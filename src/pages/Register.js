@@ -15,7 +15,6 @@ const Register = () => {
 
   const ctx = useContext(WorkoutContext);
 
-  console.log(auth);
   // to navigate to other pages
   const navigate = useNavigate();
   // creat new user

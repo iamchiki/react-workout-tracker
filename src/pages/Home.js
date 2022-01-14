@@ -29,11 +29,7 @@ const Home = () => {
       fetchWorkouts();
     }
   }, []);
-  if (ctx.currentUser) {
-    console.log(ctx.currentUser.email);
-  }
-  console.log('home');
-  console.log(workoutList);
+
   return (
     <React.Fragment>
       <div className='container mx-auto mt-10 px-4'>

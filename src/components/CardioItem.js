@@ -27,7 +27,6 @@ const CardioItem = (props) => {
 
   const svgClickHandler = () => {
     props.deleteRow(props.rowIndex);
-    console.log('delet clicked');
   };
 
   const checkInputValidation = (e) => {

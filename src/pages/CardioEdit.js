@@ -26,11 +26,9 @@ const CardioEdit = (props) => {
     setInputValues({ ...inputValues, [id]: value });
     setInputValidation({ ...inputValidation, [id]: '' });
   };
-  console.log(ctx.exercises);
 
   // delet exercis inputs from client side
   const deleteHandler = () => {
-    console.log('delete');
     props.deleteExercise(props.rowIndex);
   };
 

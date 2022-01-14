@@ -18,7 +18,6 @@ const ViewWorkout = (props) => {
 
   // get workout info from previous router
   const location = useLocation();
-  console.log(location.state);
   const workout = location.state;
 
   useEffect(() => {
@@ -86,13 +85,11 @@ const ViewWorkout = (props) => {
         : { type: '', distance: '', duration: '', pace: '' };
 
     ctx.exercises = [...exerciseList, exerciseInputs];
-    console.log(ctx.exercises);
     setExerciseList(ctx.exercises);
   };
 
   // update value of existing workout
   const updateRecord = async () => {
-    console.log(ctx.exercises);
     try {
       if (workoutNameRef.current.value === '') {
         throw new Error('Please Enter Workout Name');
@@ -113,7 +110,6 @@ const ViewWorkout = (props) => {
       });
       ctx.status = { type: 'success', message: 'Success: Workout Updated!' };
     } catch (error) {
-      console.log(error);
       ctx.status = {
         type: 'error',
         message: `${error.message}`,
@@ -123,9 +119,6 @@ const ViewWorkout = (props) => {
   };
 
   const deleteWorkout = async () => {
-    console.log('delete workout');
-    console.log(workout);
-
     try {
       const docRef = doc(
         db,

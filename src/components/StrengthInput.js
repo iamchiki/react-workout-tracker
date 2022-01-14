@@ -19,10 +19,7 @@ const StrengthInput = () => {
     ];
     setExercises(ctx.exercises);
   };
-  // console.log(exercises);
   const deleteHandler = (index) => {
-    // ctx.exercises.splice(index, 1);
-    // setExercises([...ctx.exercises]);
     if (ctx.exercises.length > 1) {
       ctx.exercises.splice(index, 1);
     } else {

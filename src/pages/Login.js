@@ -14,7 +14,6 @@ const Login = () => {
 
   const ctx = useContext(WorkoutContext);
 
-  console.log(ctx);
   //to navigate to other routes
   const navigate = useNavigate();
 
@@ -30,9 +29,6 @@ const Login = () => {
       // navigate to dashboard after sucessfull login
       navigate('/home');
     } catch (error) {
-      console.dir(error);
-      console.log(error);
-      console.log(error.code.slice(5));
       ctx.status = {
         type: 'error',
         message: `Error: ${error.code.slice(5)}`,
