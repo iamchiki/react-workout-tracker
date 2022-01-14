@@ -58,7 +58,7 @@ const ViewWorkout = (props) => {
 
   // to render strength or cardiio conditionally
   const renderExerciseList = (workoutType, exercise, index) => {
-    if (workoutType == 'strength') {
+    if (workoutType === 'strength') {
       return (
         <StrengthEdit
           key={uid()}
